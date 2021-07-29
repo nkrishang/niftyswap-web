@@ -3,12 +3,22 @@ import 'tailwindcss/tailwind.css'
 
 import { ChakraProvider } from "@chakra-ui/react"
 
-function MyApp({ Component, pageProps }: AppProps) {
+import { Web3ReactProvider } from "@web3-react/core";
+import { Web3Provider, ExternalProvider, JsonRpcFetchFunc } from "@ethersproject/providers";
 
-  return (
-    <ChakraProvider>
-      <Component {...pageProps} />
-    </ChakraProvider>
-  )
+function getLibrary(provider: JsonRpcFetchFunc | ExternalProvider) {
+  const library = new Web3Provider(provider);
+  library.pollingInterval = 8000;
+  return library;
 }
-export default MyApp
+
+function App({ Component, pageProps }: AppProps) {
+    return (
+      <ChakraProvider>
+        <Web3ReactProvider getLibrary={getLibrary}>
+          <Component {...pageProps} />
+        </Web3ReactProvider>
+      </ChakraProvider>
+    )
+  }
+  export default App
