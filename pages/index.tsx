@@ -1,17 +1,13 @@
-import Head from 'next/head'
 import Image from 'next/image'
+
+import Page from "../components/Page"
 
 import { Button } from '@chakra-ui/button'
 import { ArrowForwardIcon, ArrowDownIcon } from '@chakra-ui/icons' 
 
 export default function Home() {
   return (
-    <div className="h-screen bg-gradient-to-b from-purple-200">
-      <Head>
-        <title>NiftySwap</title>
-        <meta name="description" content="Trade NFTs with your internet friends." />
-        <link rel="icon" href="/niftyswap-logo.ico" />
-      </Head>
+    <Page>
       
       <div className="max-w-6xl m-auto px-8 py-8">
         <div className="flex flex-col">
@@ -83,6 +79,6 @@ export default function Home() {
 					</div>
         </div>
       </div>
-    </div>
+    </Page>
   )
 }
