@@ -1,6 +1,7 @@
 import Image from 'next/image'
 
 import Page from "../components/Page"
+import Container from '../components/Container'
 
 import { Button } from '@chakra-ui/button'
 import { ArrowForwardIcon, ArrowDownIcon } from '@chakra-ui/icons' 
@@ -9,25 +10,23 @@ export default function Home() {
   return (
     <Page>
       
-      <div className="max-w-6xl m-auto px-8 py-8">
-        <div className="flex flex-col">
+      <Container>
 
-          <div className="flex flex-row justify-between pb-8">
-            <Image
-              src="/niftyswap-logo-full.svg"
-              height={80}
-              width={239}
-            />
+        <div className="flex flex-row justify-between pb-8">
+          <Image
+            src="/niftyswap-logo-full.svg"
+            height={80}
+            width={239}
+          />
 
-            <div className="flex flex-row justify-center items-center">
-              <a className="mr-4 hover:underline cursor-pointer">
-                smart contract
-              </a>
+          <div className="flex flex-row justify-center items-center">
+            <a className="mr-4 hover:underline cursor-pointer">
+              smart contract
+            </a>
 
-              <a className="ml-4 hover:underline cursor-pointer">
-                github
-              </a>
-            </div>
+            <a className="ml-4 hover:underline cursor-pointer">
+              github
+            </a>
           </div>
         </div>
 
@@ -78,7 +77,7 @@ export default function Home() {
 						</div>
 					</div>
         </div>
-      </div>
+      </Container>
     </Page>
   )
 }

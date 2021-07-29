@@ -6,7 +6,12 @@ module.exports = {
       neonpink: "0 0 50px rgba(205, 13, 163, 0.25)",
       neonblue: "0 0 50px rgba(105, 177, 244, 0.25)"
     },
-    extend: {},
+    extend: {
+      outline: ['hover'],
+      // outline: {
+      //   purple: "1px solid #5348FF"
+      // }
+    },
   },
   variants: {
     extend: {},
