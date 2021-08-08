@@ -33,11 +33,11 @@ export default function Home() {
         <div className="flex flex-row m-auto justify-between">
           <div className="flex flex-col justify-start w-2/3">
 						<p className="text-gray-800 text-7xl font-black leading-normal py-4">
-							Trade NFTs with your (<span className="text-purple-400 font-black text-6xl">internet</span>) friends.
+							Trade Cool Cats with your (<span className="text-purple-400 font-black text-6xl">internet</span>) friends.
 						</p>
 
 						<p className="text-gray-600 text-xl pt-4 pb-8">
-							Share a ‘swap link’ to your NFT and find people who’ll trade their NFTs for yours!
+							{"Not vibing with your cool cat? Don't sell it! Trade it for a cat you vibe with."}
 						</p>
 
 						<Button rightIcon={<ArrowForwardIcon />} variant="solid" colorScheme="purple" maxW="250" size="lg">
@@ -50,7 +50,7 @@ export default function Home() {
 							<div className="m-auto">
 								<Image
 									priority={true}
-									src="/niftyswap-landing-cool-cats.png"
+									src="/niftyswap-landing-cool-cats-1.png"
 									height={200}
 									width={200}
 								/>
@@ -69,7 +69,7 @@ export default function Home() {
 							<div className="m-auto">
 								<Image
 									priority={true}
-									src="/niftyswap-landing-bored-ape.png"
+									src="/niftyswap-landing-cool-cats-2.png"
 									height={200}
 									width={200}
 								/>
