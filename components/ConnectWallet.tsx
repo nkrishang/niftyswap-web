@@ -1,4 +1,5 @@
 import  { useState, useEffect } from 'react'
+import { ethers } from 'ethers';
 
 import { useWeb3React, UnsupportedChainIdError } from "@web3-react/core";
 import { InjectedConnector, NoEthereumProviderError, UserRejectedRequestError } from '@web3-react/injected-connector'
@@ -6,8 +7,10 @@ import { injected } from "../utils/web3/connectors";
 
 import useEagerConnect from '../utils/web3/useEagerConnect';
 import useInactiveListener from '../utils/web3/useInactiveListener';
+import { chainIds } from '../utils/web3/chainIds';
+import { errorToast } from '../utils/toast';
 
-import { Spinner } from "@chakra-ui/react"
+import { Spinner, useToast } from "@chakra-ui/react"
 
 type NotConnectedButtonProps = {
   handleConnectRequest: () => void;
@@ -23,10 +26,6 @@ function NotConnectedButton({handleConnectRequest, activating, active}: NotConne
     >
       {activating && (
         <div className="flex justify-center">
-          <p className="text-purple-700 font-semibold px-2">
-            Connect Wallet
-          </p>
-
           <Spinner size="sm"/>
         </div>
       )}
@@ -40,7 +39,33 @@ function NotConnectedButton({handleConnectRequest, activating, active}: NotConne
   )
 }
 
-export default function ConnectWallet() {
+function ConnectedButton({chainId, balance, address}: {chainId: keyof typeof chainIds, balance: string, address: string}): JSX.Element {
+  return (
+    <div className="flex flex-row justify-between">
+
+      <div className="h-10 w-auto px-4 bg-purple-200 rounded-xl flex flex-col justify-center items-center mx-2">
+        <p className="text-purple-700">
+          {chainIds[chainId]}
+        </p>
+      </div>
+
+      <div className="h-10 w-56 flex justify-between items-center bg-gray-50 rounded-xl mx-2 pl-2 pr-1">
+        <p className="font-bold text-center">
+          {`${balance} ETH`}
+        </p>
+
+        <button className="font-semibold z-10 h-8 w-32 bg-white rounded-xl">
+          {address.slice(0,6) + "..." + address.slice(-4)}
+        </button>
+      </div>
+
+    </div>
+  )
+}
+
+export default function ConnectWallet(): JSX.Element {
+
+  const toast = useToast();
 
   function getErrorMessage(error: any) {
     if (error instanceof NoEthereumProviderError) {
@@ -70,6 +95,9 @@ export default function ConnectWallet() {
   // handle logic to recognize the connector currently being activated
   const [activatingConnector, setActivatingConnector] = useState<InjectedConnector | undefined>(undefined);
 
+  // User balance
+  const [ethBal, setEthBal] = useState<string>("");
+
   useEffect(() => {
     if (activatingConnector && activatingConnector === connector) {
       setActivatingConnector(undefined);
@@ -84,9 +112,24 @@ export default function ConnectWallet() {
         deactivate()
       }
 
-      window.alert(getErrorMessage(error))
+      errorToast(toast, getErrorMessage(error));
     }
   }, [error])
+
+  useEffect(() => {
+    async function getBalance(): Promise<void> {
+      const bal = await library.getBalance(account)
+      const formattedBal = parseFloat(
+        ethers.utils.formatEther(bal)
+      ).toFixed(2)
+
+      setEthBal(formattedBal);
+    }
+
+    if(account) {
+      getBalance()
+    }
+  }, [account])
 
   // handle logic to eagerly connect to the injected ethereum provider, if it exists and has granted access already
   const triedEager = useEagerConnect();
@@ -109,8 +152,14 @@ export default function ConnectWallet() {
   return (
     <>
       {
-        !(!activating && active) && (
+        (activating || !active)
+        
+        ? (
           <NotConnectedButton handleConnectRequest={handleConnectRequest} activating={activating} active={active}/>
+        )
+
+        : (
+          <ConnectedButton chainId={chainId as keyof typeof chainIds} balance={ethBal} address={account as string}/>
         )
       }
     </>

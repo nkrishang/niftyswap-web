@@ -1,6 +1,6 @@
-export default function Container({children}: any) {
+export default function Container({children}: any): JSX.Element {
   return (
-    <div className="max-w-6xl m-auto px-8 py-8">
+    <div className="max-w-6xl m-auto p-8">
       {children}
     </div>
   )

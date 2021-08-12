@@ -2,11 +2,12 @@ import Image from 'next/image'
 
 import Page from "../components/Page"
 import Container from '../components/Container'
+import SwapGraphic from '../components/SwapGraphic'
 
 import { Button } from '@chakra-ui/button'
 import { ArrowForwardIcon, ArrowDownIcon } from '@chakra-ui/icons' 
 
-export default function Home() {
+export default function Home(): JSX.Element {
   return (
     <Page>
       
@@ -45,37 +46,7 @@ export default function Home() {
 						</Button>
           </div>
 
-					<div className="flex flex-col justify-center items-center" style={{maxHeight: "560px" }}>
-						<div className="h-60 w-60 border-2 border-pink-500 bg-white shadow-neonpink rounded-lg flex flex-col justify-center z-10">
-							<div className="m-auto">
-								<Image
-									priority={true}
-									src="/niftyswap-landing-cool-cats-1.png"
-									height={200}
-									width={200}
-								/>
-							</div>
-						</div>
-
-						<div className="h-16 w-4 bg-black z-0 m-auto">
-							<div className="bg-white border-2 border-purple-700 h-10 w-10 rounded-xl z-10 m-auto relative right-3 top-3 flex flex-col justify-center">
-								<div className="m-auto">
-									<ArrowDownIcon w={6} h={6} color="purple.500"/>
-								</div>
-							</div>
-						</div>						
-
-						<div className="h-60 w-60 border-2 border-blue-500 bg-white shadow-neonblue rounded-lg flex flex-col justify-center z-10">
-							<div className="m-auto">
-								<Image
-									priority={true}
-									src="/niftyswap-landing-cool-cats-2.png"
-									height={200}
-									width={200}
-								/>
-							</div>
-						</div>
-					</div>
+          <SwapGraphic srcOwned={"/niftyswap-landing-cool-cats-1.png"} srcWanted={"/niftyswap-landing-cool-cats-2.png"}/>
         </div>
       </Container>
     </Page>

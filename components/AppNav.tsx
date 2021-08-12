@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import ConnectWallet from './ConnectWallet'
 
-export default function AppNav() {
+export default function AppNav(): JSX.Element {
   return (
     <div className="flex flex-row justify-between pb-8 items-center">
       <Image
