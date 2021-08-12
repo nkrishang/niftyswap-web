@@ -56,20 +56,29 @@ export default function MainApp(): JSX.Element {
   // Web3 react: provider and signer.
   const { library, account } = useWeb3React()
 
-  // State
+  // Progress: 3 stages.
   const [progress, setProgress] = useState<Progress>(Progress.SelectNftToTrade)
 
+  // Get on load.
+  const [nftsOwned, setNftsOwned] = useState<NFT[]>([]);
+  const [nftsNotOwned, setNftsNotOwned] = useState<NFT[]>([]);
+
+  // Select state.
   const [nftToTrade, setNftToTrade] = useState<NFT>();
   const [nftWanted, setNftWanted] = useState<NFT>();
   const [selected, setSelected] = useState<string>("");
-
-  const [nftsOwned, setNftsOwned] = useState<NFT[]>([]);
-  const [nftsNotOwned, setNftsNotOwned] = useState<NFT[]>([]);
 
   const nftsToDisplay: NFT[] = progress == Progress.SelectNftToTrade ? nftsOwned : nftsNotOwned;
 
   const setChecked = (key: string) => setSelected(key)
   const isChecked = (key: string) => selected == key
+
+  useEffect(() => {
+    if(account ) {
+      getNFTs(account)
+    }
+
+  }, [account])
 
   const nextStep = () => {
     switch(progress) {
@@ -182,8 +191,6 @@ export default function MainApp(): JSX.Element {
       return {image, name, tokenId}
     }))
 
-    console.log('hello')
-
     setNftsNotOwned([...formattedNFTs]);
   }
 
@@ -202,8 +209,6 @@ export default function MainApp(): JSX.Element {
       return {image, name, tokenId}
     }))
 
-    console.log('hello')
-
     setNftsOwned([...formattedNFTs])
   }
 
@@ -211,13 +216,6 @@ export default function MainApp(): JSX.Element {
     await getNFTsOwned(addr)
     await getNFTsNotOwned(addr)
   }
-
-  useEffect(() => {
-    if(account ) {
-      getNFTs(account)
-    }
-
-  }, [account])
 
   return (
     <Page>
