@@ -33,8 +33,8 @@ export default function Home(): JSX.Element {
 
         <div className="flex flex-row m-auto justify-between">
           <div className="flex flex-col justify-start w-2/3">
-						<p className="text-gray-800 text-7xl font-black leading-normal py-4">
-							Trade Cool Cats with your (<span className="text-purple-400 font-black text-6xl">internet</span>) friends.
+            <p className="text-gray-800 text-6xl font-black leading-normal py-4">
+							Bundle, barter and trade <span className="text-purple-400 font-black text-6xl">NFTs</span> and <span className="text-purple-400 font-black text-6xl">ERC-20s</span>.
 						</p>
 
 						<p className="text-gray-600 text-xl pt-4 pb-8">
@@ -46,7 +46,7 @@ export default function Home(): JSX.Element {
 						</Button>
           </div>
 
-          <SwapGraphic srcOwned={"/niftyswap-landing-cool-cats-1.png"} srcWanted={"/niftyswap-landing-cool-cats-2.png"}/>
+          <SwapGraphic srcOwned={"/niftyswap-landing-cool-cats-1.png"} srcWanted={"/niftyswap-landing-bored-ape.png"}/>
         </div>
       </Container>
     </Page>
